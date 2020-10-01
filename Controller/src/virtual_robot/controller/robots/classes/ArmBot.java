@@ -1,6 +1,7 @@
 package virtual_robot.controller.robots.classes;
 
 import com.qualcomm.hardware.bosch.BNO055IMUImpl;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.MotorType;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ import virtual_robot.util.AngleUtils;
  * combo box. The filename refers to the fxml file that contains the markup for the graphical UI.
  * Note: the fxml file must be located in the virtual_robot.controller.robots.classes.fxml folder.
  */
-@BotConfig(name = "Arm Bot", filename = "arm_bot")
+@BotConfig(name = "Arm Bot", filename = "arm_bot", disabled = true)
 public class ArmBot extends VirtualBot {
 
     /*

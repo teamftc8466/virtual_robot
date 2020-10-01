@@ -2,6 +2,7 @@ package virtual_robot.controller.robots.classes;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.BNO055IMUImpl;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.MotorType;
 import javafx.application.Platform;
@@ -30,7 +31,7 @@ import virtual_robot.util.AngleUtils;
  *
  * TwoWheelBot is the controller class for the "two_wheel_bot.fxml" markup file.
  */
-@BotConfig(name = "Programming Board", filename = "programming_board")
+@BotConfig(name = "Programming Board", filename = "programming_board", disabled = true)
 public class ProgrammingBoard extends VirtualBot {
 
     private MotorType motorType;

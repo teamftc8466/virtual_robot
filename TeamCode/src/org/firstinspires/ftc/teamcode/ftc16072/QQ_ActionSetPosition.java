@@ -7,12 +7,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ftc16072.Util.RobotPosition;
 
 
-class QQ_ActionSetPosition extends QQ_AutoAction {
+public class QQ_ActionSetPosition extends QQ_AutoAction {
     private double x;
     private double y;
     private double supposedAngle;
 
-    QQ_ActionSetPosition(RobotPosition robotPosition) {
+    public QQ_ActionSetPosition(RobotPosition robotPosition) {
         this.x = robotPosition.getX(DistanceUnit.CM);
         this.y = robotPosition.getY(DistanceUnit.CM);
         this.supposedAngle = robotPosition.getHeading(AngleUnit.RADIANS);

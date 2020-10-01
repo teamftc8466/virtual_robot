@@ -47,9 +47,13 @@ public abstract class VirtualBot {
 
     protected StackPane fieldPane;
     protected double fieldWidth;
+    protected double fieldHeight;
     protected double halfFieldWidth;
     protected double halfBotWidth;
     protected double botWidth;
+
+    protected double pixlPerInWidth;
+    protected double pixlPerInHeight;
 
     protected double x = 0;
     protected double y = 0;
@@ -61,6 +65,9 @@ public abstract class VirtualBot {
         fieldPane = controller.getFieldPane();
         createHardwareMap();
         this.fieldWidth = fieldPane.getPrefWidth();
+        this.fieldHeight = fieldPane.getPrefHeight();
+        this.pixlPerInWidth = fieldPane.getPrefWidth()/144.0;
+        this.pixlPerInHeight = fieldPane.getPrefHeight()/144.0;
         halfFieldWidth = fieldWidth / 2.0;
         botWidth = fieldWidth / 8.0;
         halfBotWidth = botWidth / 2.0;

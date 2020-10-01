@@ -79,7 +79,7 @@ abstract public class QQ_AutoBase extends OpMode {
         robot.init(hardwareMap);
     }
 
-    abstract List<QQ_AutoAction> getSteps();
+    public abstract List<QQ_AutoAction> getSteps();
 
     @Override
     public void start() {

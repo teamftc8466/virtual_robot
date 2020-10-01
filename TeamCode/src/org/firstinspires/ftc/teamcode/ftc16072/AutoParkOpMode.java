@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.ftc16072;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ftc16072.Util.RobotPosition;
@@ -13,8 +15,9 @@ import java.util.List;
  * For blue alliance: start with robot in square next to the blue building site, facing toward the loading zone.
  */
 @Autonomous(name = "Park", group = "ftc16072")
+@Disabled
 public class AutoParkOpMode extends QQ_AutoBase {
-    List<QQ_AutoAction> getSteps() {
+    public List<QQ_AutoAction> getSteps() {
         QQ_ActionSetPosition startPosition =
                 new QQ_ActionSetPosition(getStartPosition());
 

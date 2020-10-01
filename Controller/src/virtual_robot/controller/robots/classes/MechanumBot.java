@@ -1,5 +1,6 @@
 package virtual_robot.controller.robots.classes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.MotorType;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import virtual_robot.util.AngleUtils;
  * MechanumBot is the controller class for the "mechanum_bot.fxml" markup file.
  *
  */
-@BotConfig(name = "Mechanum Bot", filename = "mechanum_bot")
+@BotConfig(name = "Mechanum Bot", filename = "mechanum_bot", disabled = true)
 public class MechanumBot extends VirtualBot {
 
     MotorType motorType;

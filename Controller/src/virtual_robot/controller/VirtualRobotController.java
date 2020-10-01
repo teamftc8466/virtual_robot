@@ -34,6 +34,7 @@ import javafx.scene.paint.Color;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorImpl;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import virtual_robot.controller.robots.classes.FotrBot;
 import virtual_robot.controller.robots.classes.MechanumBot;
 import virtual_robot.keyboard.KeyState;
 
@@ -110,11 +111,11 @@ public class VirtualRobotController {
     private ChangeListener<Number> sliderChangeListener = new ChangeListener<Number>() {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            for (DcMotor motor: hardwareMap.dcMotor) {
-                ((DcMotorImpl)motor).setRandomErrorFrac(sldRandomMotorError.getValue());
-                ((DcMotorImpl)motor).setSystematicErrorFrac(sldSystematicMotorError.getValue() * 2.0 * (0.5 - random.nextDouble()));
-                ((DcMotorImpl)motor).setInertia(1.0 - Math.pow(10.0, -sldMotorInertia.getValue()));
-            }
+//            for (DcMotor motor: hardwareMap.dcMotor) {
+//                ((DcMotorImpl)motor).setRandomErrorFrac(sldRandomMotorError.getValue());
+//                ((DcMotorImpl)motor).setSystematicErrorFrac(sldSystematicMotorError.getValue() * 2.0 * (0.5 - random.nextDouble()));
+//                ((DcMotorImpl)motor).setInertia(1.0 - Math.pow(10.0, -sldMotorInertia.getValue()));
+//            }
         }
     };
 
@@ -147,9 +148,9 @@ public class VirtualRobotController {
 
         addConstraintMasks();
 
-        sldRandomMotorError.valueProperty().addListener(sliderChangeListener);
-        sldSystematicMotorError.valueProperty().addListener(sliderChangeListener);
-        sldMotorInertia.valueProperty().addListener(sliderChangeListener);
+//        sldRandomMotorError.valueProperty().addListener(sliderChangeListener);
+//        sldSystematicMotorError.valueProperty().addListener(sliderChangeListener);
+//        sldMotorInertia.valueProperty().addListener(sliderChangeListener);
         if (Config.USE_VIRTUAL_GAMEPAD){
             checkBoxGamePad1.setVisible(false);
             checkBoxGamePad2.setVisible(false);
@@ -171,6 +172,7 @@ public class VirtualRobotController {
             gamePadHelper = new RealGamePadHelper();
         }
         gamePadExecutorService.scheduleAtFixedRate(gamePadHelper, 0, 20, TimeUnit.MILLISECONDS);
+
     }
 
     private void addConstraintMasks(){
@@ -211,7 +213,7 @@ public class VirtualRobotController {
                 validConfigClasses.add(c);
         }
         cbxConfig.setItems(validConfigClasses);
-        cbxConfig.setValue(MechanumBot.class);
+        cbxConfig.setValue(FotrBot.class);
 
         cbxConfig.setCellFactory(new Callback<ListView<Class<?>>, ListCell<Class<?>>>() {
             @Override
@@ -275,30 +277,30 @@ public class VirtualRobotController {
             }
         }
 
-        nonDisabledOpModeClasses.sort(new Comparator<Class<?>>() {
-            @Override
-            public int compare(Class<?> o1, Class<?> o2) {
-                String group1 = null;
-                Annotation a1 = o1.getAnnotation(TeleOp.class);
-                if (a1 != null) group1 = ((TeleOp)a1).group();
-                else{
-                    a1 = o1.getAnnotation(Autonomous.class);
-                    if (a1 != null) group1 = ((Autonomous)a1).group();
-                }
-
-                String group2 = null;
-                Annotation a2 = o2.getAnnotation(TeleOp.class);
-                if (a2 != null) group2 = ((TeleOp)a2).group();
-                else{
-                    a2 = o2.getAnnotation(Autonomous.class);
-                    if (a2 != null) group2 = ((Autonomous)a2).group();
-                }
-
-                if (group1 == null) return -1;
-                else if (group2 == null) return 1;
-                else return group1.compareToIgnoreCase(group2);
-            }
-        });
+//        nonDisabledOpModeClasses.sort(new Comparator<Class<?>>() {
+//            @Override
+//            public int compare(Class<?> o1, Class<?> o2) {
+//                String group1 = null;
+//                Annotation a1 = o1.getAnnotation(TeleOp.class);
+//                if (a1 != null) group1 = ((TeleOp)a1).group();
+//                else{
+//                    a1 = o1.getAnnotation(Autonomous.class);
+//                    if (a1 != null) group1 = ((Autonomous)a1).group();
+//                }
+//
+//                String group2 = null;
+//                Annotation a2 = o2.getAnnotation(TeleOp.class);
+//                if (a2 != null) group2 = ((TeleOp)a2).group();
+//                else{
+//                    a2 = o2.getAnnotation(Autonomous.class);
+//                    if (a2 != null) group2 = ((Autonomous)a2).group();
+//                }
+//
+//                if (group1 == null) return -1;
+//                else if (group2 == null) return 1;
+//                else return group1.compareToIgnoreCase(group2);
+//            }
+//        });
 
         cbxOpModes.setItems(nonDisabledOpModeClasses);
 
@@ -314,14 +316,22 @@ public class VirtualRobotController {
                             return;
                         }
                         Annotation a = cl.getAnnotation(TeleOp.class);
-                        if (a != null) setText(((TeleOp)a).group() + ": " + ((TeleOp)a).name());
+                        if (a != null)
+                        {
+                            setText(((TeleOp)a).group() + ": " + ((TeleOp)a).name());
+                        }
                         else {
                             a = cl.getAnnotation(Autonomous.class);
-                            if (a != null) setText(((Autonomous)a).group() + ": "  + ((Autonomous)a).name());
+                            if (a != null)
+                            {
+                                setText(((Autonomous)a).group() + ": "  + ((Autonomous)a).name());
+                            }
                             else setText("No Name");
                         }
 
                     }
+
+
                 };
                 return cell;
             }
@@ -339,13 +349,54 @@ public class VirtualRobotController {
                 if (a != null) setText(((TeleOp) a).name());
                 else {
                     a = cl.getAnnotation(Autonomous.class);
-                    if (a != null) setText(((Autonomous) a).name());
+                    if (a != null) {
+                        setText(((Autonomous) a).name());
+                        String opClassName = cl.getSimpleName();
+                        initialBotLocation(opClassName);
+                    }
                     else setText("No Name");
                 }
             }
         });
 
         cbxOpModes.setValue(cbxOpModes.getItems().get(0));
+
+        cbxOpModes.valueProperty().addListener(new ChangeListener<Class<?>>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Class<?>> observable, Class<?> oldValue, Class<?> newValue) {
+                String opClassName = newValue.getSimpleName();
+                initialBotLocation(opClassName);
+            }
+        });
+    }
+
+    void initialBotLocation(String opClassName)
+    {
+        if (opClassName.startsWith("AutoRedLeft"))
+        {
+            bot.x=bot.halfFieldWidth-48*bot.pixlPerInWidth;
+            bot.y=-bot.fieldHeight*1/2 + 9.5*bot.pixlPerInHeight;
+            bot.updateDisplay();
+        }
+        else if (opClassName.startsWith("AutoRedRight"))
+        {
+            bot.x=bot.halfFieldWidth-24*bot.pixlPerInWidth;
+            bot.y=-bot.fieldHeight*1/2 + 9.5*bot.pixlPerInHeight;
+            bot.updateDisplay();
+        }
+        else if (opClassName.startsWith("AutoBlueLeft"))
+        {
+            bot.x=-bot.halfFieldWidth+24*bot.pixlPerInWidth;
+            bot.y=-bot.fieldHeight*1/2 + 9.5*bot.pixlPerInHeight;
+            bot.updateDisplay();
+        }
+        else if (opClassName.startsWith("AutoBlueRight"))
+        {
+            bot.x=-bot.halfFieldWidth+48*bot.pixlPerInWidth;
+            bot.y=-bot.fieldHeight*1/2 + 9.5*bot.pixlPerInHeight;
+            bot.updateDisplay();
+        }
     }
 
 
@@ -357,9 +408,12 @@ public class VirtualRobotController {
         if (bot == null) System.out.println("Unable to get VirtualBot Object");
         hardwareMap = bot.getHardwareMap();
         initializeTelemetryTextArea();
-        sldRandomMotorError.setValue(0.0);
-        sldSystematicMotorError.setValue(0.0);
-        sldMotorInertia.setValue(0.0);
+//        sldRandomMotorError.setValue(0.0);
+//        sldSystematicMotorError.setValue(0.0);
+//        sldMotorInertia.setValue(0.0);
+//        sldRandomMotorError.setVisible(false);
+//        sldSystematicMotorError.setVisible(false);
+//        sldMotorInertia.setVisible(false);
     }
 
     public StackPane getFieldPane(){ return fieldPane; }
@@ -405,6 +459,8 @@ public class VirtualRobotController {
             opModeStarted = true;
         }
         else{
+            String opClassName = cbxOpModes.getSelectionModel().selectedItemProperty().getValue().getSimpleName();
+            initialBotLocation(opClassName);
             driverButton.setText("INIT");
             opModeInitialized = false;
             opModeStarted = false;

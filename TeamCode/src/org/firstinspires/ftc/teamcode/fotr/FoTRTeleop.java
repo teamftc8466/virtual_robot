@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.ftc16072;
+package org.firstinspires.ftc.teamcode.fotr;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "mechanum driving opmode", group = "ftc16072")
-@Disabled
-public class MecanumDrivingOpMode extends OpMode {
+import org.firstinspires.ftc.teamcode.ftc16072.MecanumDrive;
+
+@TeleOp(name = "Teleop", group = "FoTR")
+public class FoTRTeleop extends OpMode {
     private MecanumDrive mecanumDrive = new MecanumDrive();
     private double[] distances;
 

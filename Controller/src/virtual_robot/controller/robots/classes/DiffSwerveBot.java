@@ -1,6 +1,7 @@
 package virtual_robot.controller.robots.classes;
 
 import com.qualcomm.hardware.bosch.BNO055IMUImpl;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.configuration.MotorType;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import virtual_robot.util.Vector2D;
  * MechanumBot is the controller class for the "mechanum_bot.fxml" markup file.
  *
  */
-@BotConfig(name = "Differential Swerve Bot", filename = "diff_swerve_bot")
+@BotConfig(name = "Differential Swerve Bot", filename = "diff_swerve_bot", disabled = true)
 public class DiffSwerveBot extends VirtualBot {
 
     MotorType motorType;

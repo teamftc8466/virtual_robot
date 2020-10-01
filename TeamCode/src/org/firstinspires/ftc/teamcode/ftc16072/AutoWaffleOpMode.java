@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.ftc16072;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ftc16072.Util.RobotPosition;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Autonomous(name = "Waffle", group = "ftc16072")
+@Disabled
 public class AutoWaffleOpMode extends QQ_AutoBase {
     double WAFFLE_WIDTH = 18.5;
     double FIELD_BOUNDARIES = 72;
@@ -21,7 +23,7 @@ public class AutoWaffleOpMode extends QQ_AutoBase {
         startDepot = false;
     }
 
-    List<QQ_AutoAction> getSteps() {
+    public List<QQ_AutoAction> getSteps() {
         List<QQ_AutoAction> steps = new ArrayList<>();
         QQ_ActionSetPosition startPosition =
                 new QQ_ActionSetPosition(getStartPosition());
